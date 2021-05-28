@@ -1,36 +1,23 @@
+# Site settings
+title: xiaobai1315
+description: > # this means to ignore newlines until "baseurl:"
+  A super simple white label website built with Jekyll and using Dan Eden's Toast grid layout.
+baseurl: ""
+url: "https://xiaobai1315.github.io/"
+repository: xiaobai1315.github.io
+theme-path: theme-assets # path to header assets etc
+map-api-key: AIzaSyB3U7uwIvCyq01orxppAIC1v73y-FBGygY
 sass:
+  sass_dir: _sass
   style: compressed
 
-defaults:
-  -
-    scope:
-      path: ""
-      type: "posts"
-    values:
-      layout: "post"
-  -
-    scope:
-      path: "assets/img"
-    values:
-      image: true
+collections:
+  case:
+    output: true
+    permalink: /case-studies/:path/
+  resource:
+    output: true
+    permalink: /resources/:path/
 
-title: Minimalism
-name: minimalism
-description: Minimalism is a jekyll theme for minimalist
-
-github: https://github.com/showzeng/Minimalism
-rss: true
-
-plugins:
-  - rouge
-  - kramdown
-  - jekyll-feed
-  - jekyll-seo-tag
-  - jemoji
-
-exclude:
-  - script
-  - docs
-  - vendor
-  - Gemfile
-  - Gemfile.lock
+# Build settings
+markdown: kramdown
