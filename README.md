@@ -1,22 +1,14 @@
-# A super simple white label Jekyll website
+这是一个可 fork 的博客模板仓库，帮助你快速搭建自己的博客，可以参考我博客的[这篇文章]( https://lemonchann.github.io/create_blog_with_github_pages/ )详细指导搭建步骤。
 
-This is Jekyll starter site with a few extra features. Served at [https://whitelabel.netlify.com](https://whitelabel.netlify.com/)
+### 文章版权
 
-![Screenshot](theme-assets/screenshot.png)
+`_posts` 文件夹内所有文章版权归我所有，转载需联系我获得授权。
 
-## Fancy features
+### 致谢
 
-* Uses [Toast](https://daneden.github.io/Toast/), Dan Eden's insane, no nonsense CSS grid
-*  Jason Mayes' [Twitter post fetcher](https://github.com/jasonmayes/Twitter-Post-Fetcher)
-*  Custom collections: Case studies and Resources
-* Markdown plugin
-* Gratuitous [wenking](https://tiaanduplessis.github.io/wenk/) from Tiaan du Plessis
-* Google map
+感谢Jekyll主题[LOFFER](https://fromendworld.github.io/LOFFER/)模提供了原始主题模板，我在其上进行的二次开发。
 
-## Image credits
+如果搭建过程中有什么问题，也可以在我的个人技术公众号「后端技术学堂」讨论交流，扫码添加。
 
-The fox image is by Andreas Rønningen and the cow photo is by Shane Rounce, both from Unsplash.
+![公众号二维码](https://github.com/lemonchann/images/raw/master/gzh/%E6%96%87%E6%9C%AB%E6%8E%A8%E5%B9%BF%E6%96%87%E6%A1%88.png)
 
-## Copyright
-
-This is free. You can do what you like with it.

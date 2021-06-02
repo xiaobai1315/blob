@@ -2,21 +2,49 @@
 layout: default
 ---
 
-<div class="wrapper">
-<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+<article class="posts">
+  
+  <h1>{{ page.title }}</h1>
 
-<header class="post-header">
-<h1 class="post-title" itemprop="name headline">{{ page.title }}</h1>
-<p class="post-meta"><time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%b %-d, %Y" }}</time>{% if page.author %} • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ page.author }}</span></span>{% endif %}</p>
-</header>
+  <div clsss="meta">
+    <span class="date">
+      {{ page.date | date: "%Y-%m-%d" }}
+    </span>
 
-<div class="post-content" itemprop="articleBody">
-{% if page.excerpt %}<p class="article-summary">{{ page.excerpt }}</p>{% endif %}
+    <ul class="tag">
+      {% for tag in page.tags %}
+      <li>
+        <a href="{{ site.url }}{{ site.baseurl }}/tags#{{ tag }}">
+          {{ tag }}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
 
-{{ content }}
-</div>
+  
 
-<a class="back-button" href="/news/" title="Other stories">&larr; Other stories</a>
+  <div class="entry">
+    {{ content }}
+  </div>
 
+  {% include disqus.html %}
+  {% include gitalk.html %}
 </article>
-</div><!-- end wrapper -->
+
+<div class="pagination">
+  {% if page.previous.url %}
+    <span class="prev" >
+      <a href="{{ site.url }}{{ site.baseurl }}{{ page.previous.url }}">
+        ← 上一篇
+      </a>
+    </span>
+  {% endif %}
+  {% if page.next.url %}
+    <span class="next" >
+      <a href="{{ site.url }}{{ site.baseurl }}{{ page.next.url }}">
+        下一篇 →
+      </a>
+    </span>
+  {% endif %}
+</div>
