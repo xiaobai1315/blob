@@ -224,3 +224,51 @@ given()
     .statusCode(200)
     .log().all();
 ```
+
+## 设置超时时间
+设置超时时间，防止失败的用例阻塞其他的用例执行
+3个测试用例，第二个用例会延迟10S返回，设置超时时间为3S， 3S后返回超时，然后继续执行剩下的用例
+```
+public class TestRestAssured {
+
+    @BeforeAll
+    static void before() {
+    	// 设置请求的根路径
+        RestAssured.baseURI = "https://httpbin.ceshiren.com";
+    }
+
+    @Test
+    public void test1() {
+        given()
+                .when()
+                .get("/get")
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    public void test2() {
+
+	// 设置请求的超时时间
+        HttpClientConfig httpClientConfig = HttpClientConfig.httpClientConfig().setParam("http.socket.timeout", 3000);
+        RestAssuredConfig restAssuredConfig = RestAssuredConfig.config().httpClient(httpClientConfig);
+
+        given()
+            .config(restAssuredConfig)
+        .when()
+            .get("/delay/10")
+        .then()
+            .statusCode(200);
+    }
+
+    @Test
+    public void test3() {
+        given()
+                .when()
+                .get("/get")
+                .then()
+                .statusCode(200);
+    }
+}
+
+```
