@@ -199,3 +199,28 @@ given()
 		.log().all();
 ```
 
+## Form请求
+
+```
+// 设置代理
+RestAssured.proxy = host("127.0.0.1").withPort(8889);
+
+// 忽略HTTPS校验
+RestAssured.useRelaxedHTTPSValidation();
+
+given()
+    .formParam("Param1", "value1")
+.when()
+    .post("https://httpbin.ceshiren.com/post")  单条form请求
+.then()
+    .statusCode(200)
+    .log().all();
+    
+given()
+    .formParams("Param1", "value1", "Param2", "value2")  // 发送多条form请求
+.when()
+    .post("https://httpbin.ceshiren.com/post")
+.then()
+    .statusCode(200)
+    .log().all();
+```
