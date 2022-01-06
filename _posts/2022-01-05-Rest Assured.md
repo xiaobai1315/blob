@@ -124,7 +124,7 @@ then()
 Response s = given()
 		.header("hello", "word")
 .when()
-		.get("https://httpbin.ceshiren.com/get")
+		.get("https://xxx/get")
 .then()
 		.statusCode(200)
 		.log().body()
@@ -151,7 +151,7 @@ RestAssured.useRelaxedHTTPSValidation();
 Response s = given()
 		.headers("Header1", "value1", "header2", "value2")
 .when()
-		.get("https://httpbin.ceshiren.com/get")
+		.get("https://xxx/get")
 .then()
 		.statusCode(200)
 		.log().body()
@@ -173,7 +173,7 @@ RestAssured.useRelaxedHTTPSValidation();
 given()
 		.headers("Cookie", "my_cookie=test")   // 通过header设置cookie
 .when()
-		.get("https://httpbin.ceshiren.com/get")
+		.get("https://xxx/get")
 .then()
 		.statusCode(200)
 		.log().all();
@@ -193,7 +193,7 @@ RestAssured.useRelaxedHTTPSValidation();
 given()
 		.cookies("my_cookie", "test", "my_cookie2", "test2")  // 通过cookie 设置cookie
 .when()
-		.get("https://httpbin.ceshiren.com/get")
+		.get("https://xxx/get")
 .then()
 		.statusCode(200)
 		.log().all();
@@ -211,7 +211,7 @@ RestAssured.useRelaxedHTTPSValidation();
 given()
     .formParam("Param1", "value1")
 .when()
-    .post("https://httpbin.ceshiren.com/post")  单条form请求
+    .post("https://xxx/post")  单条form请求
 .then()
     .statusCode(200)
     .log().all();
@@ -219,7 +219,7 @@ given()
 given()
     .formParams("Param1", "value1", "Param2", "value2")  // 发送多条form请求
 .when()
-    .post("https://httpbin.ceshiren.com/post")
+    .post("https://xxx/post")
 .then()
     .statusCode(200)
     .log().all();
@@ -234,7 +234,7 @@ public class TestRestAssured {
     @BeforeAll
     static void before() {
     	// 设置请求的根路径
-        RestAssured.baseURI = "https://httpbin.ceshiren.com";
+        RestAssured.baseURI = "https://xxx";
     }
 
     @Test
@@ -271,4 +271,27 @@ public class TestRestAssured {
     }
 }
 
+```
+
+## 上传文件
+
+```
+File file = new File("src/main/resources/test.txt");
+
+// 设置代理
+RestAssured.proxy = host("127.0.0.1").withPort(8889);
+
+// 忽略HTTPS校验
+RestAssured.useRelaxedHTTPSValidation();
+
+given()
+	.multiPart("test", file)
+	.multiPart("test1", "{\"key\": 123}", "application/json")
+	.log().headers()
+	.log().body()
+.when()
+    .post("https://xxx/post")
+.then()
+    .statusCode(200)
+    .log().all();
 ```
