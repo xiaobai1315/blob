@@ -23,21 +23,16 @@ then(): 响应结果输出、断言, then 中的log 打印的是响应体的log
 
 log():打印日志，在when()代码块打印的是请求日志，在then()代码块中打印的是响应日志
 ```
-public void test2() {
-            given().
-            when().
-                log().headers(). // 请求体的header
-                    log().body(). // 请求体的body
-                get("https://www.baidu.com"). // 请求地址
-            then()
-                .log().body()    // 响应体body
-                .log().headers()  // 响应体header
-                .statusCode(200)  // 响应结果码断言
-                .header("Content-Type", "text/html")  // 响应header断言
-                .body("html.head.title", Matchers.equalTo("百度一下，你就知道"));  // 响应body断言
-    }
+given().
+when().
+  log().headers(). // 请求体的header
+  log().body(). // 请求体的body
+  get("https://www.baidu.com"). // 请求地址
+then()
+  .statusCode(200)  // 响应结果码断言
+  .header("Content-Type", "text/html")  // 响应header断言
+  .body("html.head.title", Matchers.equalTo("百度一下，你就知道"));  // 响应body断言
 ```
-
 
 
 ## 设置请求参数
@@ -48,20 +43,14 @@ get请求添加参数有两种方式，一种是直接在请求URL中拼接参�
 public void test() {
 given().
 when().
-		get("https://xxx.xxx.xxx?username=username").  // 直接在请求URL中拼接参数
-then()
-		.log().all()
-		.statusCode(200);
+  get("https://xxx.xxx.xxx?username=username").  // 直接在请求URL中拼接参数
+then();
 }
 ```
 ```
  given().
- 			param("username", "hogwords").  // 指定参数
- when().
- 			get("https://xxxxxxxxx.com/get").
- then()
- 			.log().all()
- 			.statusCode(200);
+     param("username", "hogwords").  // 指定参数
+.when().then()
     }
 ```
 
@@ -69,16 +58,11 @@ then()
 ```
 public void test2() {
 given().
-		queryParam("username", "hogwords").// 查询参数
-		formParam("username", "hogwords").// 表单参数
-when().
-		post("https://xxxxxxxxx/post").
-then()
-		.log().all()
-		.statusCode(200);
+    queryParam("username", "hogwords").// 查询参数
+    formParam("username", "hogwords").// 表单参数
+.when().then()
 }
 ```
-
 
 
 ## 设置请求体
@@ -88,15 +72,9 @@ then()
 public void test2() {
 String json = "{\"hello\": \"hogwords\"}";// json请求体
 given().
-		body(json).   // 设置请求体
-		contentType("application/json"). // 设置请求体参数类型
-		.log().headers()
-		.log().body()
-when().
-		post("https://xxx/post").
-then()
-		.log().all()
-		.statusCode(200);
+  body(json).   // 设置请求体
+  contentType("application/json"). // 设置请求体参数类型
+.when().then()
 }
 ```
 
@@ -105,30 +83,17 @@ then()
 HashMap<String, String> map = new HashMap<>();
 map.put("hello", "hogwords");
 given().
-		body(map). // 设置请求体
-		contentType("application/json"). // 设置请求体参数类型
-		.log().headers()
-		.log().body()
-when().
-		post("https://xxx/post").
-then()
-		.log().all()
-		.statusCode(200);
+  body(map). // 设置请求体
+  contentType("application/json"). // 设置请求体参数类型
+.when().then()
 ```
-
-
 
 ## 获取响应结果
 
 ```
 Response s = given()
-		.header("hello", "word")
-.when()
-		.get("https://xxx/get")
-.then()
-		.statusCode(200)
-		.log().body()
-		.extract().response();
+    .header("hello", "word")
+.when().then()
 
 String path = s.path("headers.Hello");  // 直接通过path读取
 System.out.println(s);
@@ -136,93 +101,51 @@ System.out.println(s.jsonPath().getString("headers.Hello"));  // 转成JSONpath�
 ```
 
 
-
 ## 设置代理
-
-用户抓包数据
-
 ```
+
+方式一：
 // 设置代理
 RestAssured.proxy = host("127.0.0.1").withPort(8889);
 
 // 忽略HTTPS校验
 RestAssured.useRelaxedHTTPSValidation();
 
-Response s = given()
-		.headers("Header1", "value1", "header2", "value2")
-.when()
-		.get("https://xxx/get")
-.then()
-		.statusCode(200)
-		.log().body()
-		.extract().response();
+方式二：
+given()
+    .proxy("127.0.0.1", 8889)
+    .relaxedHTTPSValidation()
+.when().then()
 ```
-
-
 
 ## 设置Cookie 
 
 ### 通过header设置
 
 ```
-// 设置代理
-RestAssured.proxy = host("127.0.0.1").withPort(8889);
-// 忽略HTTPS校验
-RestAssured.useRelaxedHTTPSValidation();
-
 given()
-		.headers("Cookie", "my_cookie=test")   // 通过header设置cookie
-.when()
-		.get("https://xxx/get")
-.then()
-		.statusCode(200)
-		.log().all();
+    .headers("Cookie", "my_cookie=test")   // 通过header设置cookie
+.when().then();
 ```
-
-
 
 ### 通过Cookie()设置
 
 ```
-// 设置代理
-RestAssured.proxy = host("127.0.0.1").withPort(8889);
-
-// 忽略HTTPS校验
-RestAssured.useRelaxedHTTPSValidation();
-
 given()
-		.cookies("my_cookie", "test", "my_cookie2", "test2")  // 通过cookie 设置cookie
-.when()
-		.get("https://xxx/get")
-.then()
-		.statusCode(200)
-		.log().all();
+    .cookies("my_cookie", "test", "my_cookie2", "test2")  // 通过cookie 设置cookie
+.when().then();
 ```
 
 ## Form请求
 
 ```
-// 设置代理
-RestAssured.proxy = host("127.0.0.1").withPort(8889);
-
-// 忽略HTTPS校验
-RestAssured.useRelaxedHTTPSValidation();
-
 given()
     .formParam("Param1", "value1")
-.when()
-    .post("https://xxx/post")  单条form请求
-.then()
-    .statusCode(200)
-    .log().all();
+.when().then();
     
 given()
     .formParams("Param1", "value1", "Param2", "value2")  // 发送多条form请求
-.when()
-    .post("https://xxx/post")
-.then()
-    .statusCode(200)
-    .log().all();
+.when().then();
 ```
 
 ## 设置超时时间
@@ -239,11 +162,7 @@ public class TestRestAssured {
 
     @Test
     public void test1() {
-        given()
-                .when()
-                .get("/get")
-                .then()
-                .statusCode(200);
+        given().when().then();
     }
 
     @Test
@@ -255,19 +174,12 @@ public class TestRestAssured {
 
         given()
             .config(restAssuredConfig)
-        .when()
-            .get("/delay/10")
-        .then()
-            .statusCode(200);
+        .when().then();
     }
 
     @Test
     public void test3() {
-        given()
-                .when()
-                .get("/get")
-                .then()
-                .statusCode(200);
+        given().when().then();
     }
 }
 
@@ -277,21 +189,15 @@ public class TestRestAssured {
 
 ```
 File file = new File("src/main/resources/test.txt");
-
-// 设置代理
-RestAssured.proxy = host("127.0.0.1").withPort(8889);
-
-// 忽略HTTPS校验
-RestAssured.useRelaxedHTTPSValidation();
-
 given()
-	.multiPart("test", file)
-	.multiPart("test1", "{\"key\": 123}", "application/json")
-	.log().headers()
-	.log().body()
-.when()
-    .post("https://xxx/post")
-.then()
-    .statusCode(200)
-    .log().all();
+	.multiPart("test", file)  // 上传文件
+	.multiPart("test1", "{\"key\": 123}", "application/json")  //附件其他信息
+.when().then();
+```
+
+## form表单身份认证
+```
+given()
+    .auth().basic("username", "password")
+.when().then()
 ```
