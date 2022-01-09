@@ -1,3 +1,18 @@
+---
+layout: post
+title: "redis utils"
+date:   2022-01-08
+tags: [redis]
+comments: true
+author: xiaobai
+---
+
+redis utils
+
+<!-- more -->
+
+## redis utils工具封装
+
 ```java
 package com.study;
 
