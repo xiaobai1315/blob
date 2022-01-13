@@ -11,6 +11,9 @@ springboot security 基础用法
 
 <!-- more -->
 
+- [导入依赖](#导入依赖)
+- [新建SecurityConfig类](#新建securityconfig类)
+
 ### 导入依赖
 
 ```
